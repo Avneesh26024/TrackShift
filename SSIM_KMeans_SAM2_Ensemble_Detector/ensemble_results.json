@@ -1,0 +1,46 @@
+{
+  "metadata": {
+    "architecture": "Ensemble: SSIM+PixelDiff(10) + Contours(3) + K-means + SAM2",
+    "image_size": [
+      720,
+      720
+    ]
+  },
+  "global_metrics": {
+    "ssim_score": 0.9942320849813889,
+    "change_percentage": 0.640625,
+    "changed_pixels": 3321
+  },
+  "statistics": {
+    "total_detections": 3
+  },
+  "detections": [
+    {
+      "x": 417,
+      "y": 576,
+      "w": 31,
+      "h": 33,
+      "area": 1023,
+      "severity": "moderate",
+      "type": "deformation"
+    },
+    {
+      "x": 145,
+      "y": 510,
+      "w": 38,
+      "h": 35,
+      "area": 1330,
+      "severity": "moderate",
+      "type": "deformation"
+    },
+    {
+      "x": 506,
+      "y": 79,
+      "w": 41,
+      "h": 40,
+      "area": 1640,
+      "severity": "moderate",
+      "type": "deformation"
+    }
+  ]
+}

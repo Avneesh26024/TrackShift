@@ -1,0 +1,54 @@
+{
+  "total_regions": 3,
+  "significant_changes": 0,
+  "regions": [
+    {
+      "id": 0,
+      "bbox": [
+        0,
+        0,
+        719,
+        719
+      ],
+      "score": 0.03337573632597923,
+      "changed": false,
+      "metrics": {
+        "l2_distance": 0.3337573707103729,
+        "cosine_distance": 0.001220703125,
+        "area_pixels": 106248
+      }
+    },
+    {
+      "id": 1,
+      "bbox": [
+        162,
+        167,
+        556,
+        562
+      ],
+      "score": 0.029354054480791092,
+      "changed": false,
+      "metrics": {
+        "l2_distance": 0.2935405373573303,
+        "cosine_distance": 0.0007480382919311523,
+        "area_pixels": 76982
+      }
+    },
+    {
+      "id": 2,
+      "bbox": [
+        0,
+        0,
+        719,
+        717
+      ],
+      "score": 0.025471026077866554,
+      "changed": false,
+      "metrics": {
+        "l2_distance": 0.25471025705337524,
+        "cosine_distance": 0.0007279515266418457,
+        "area_pixels": 377698
+      }
+    }
+  ]
+}
