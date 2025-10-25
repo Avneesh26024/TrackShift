@@ -1,0 +1,31 @@
+{
+    "image_name": "/content/race_car_tire_1_anomaly.jpeg",
+    "ssim_score": 0.9942320849813889,
+    "change_score_percent": 0.6346450617283951,
+    "anomalies": [
+        {
+            "x": 417,
+            "y": 576,
+            "w": 31,
+            "h": 33,
+            "type": "missing_part",
+            "severity": "moderate"
+        },
+        {
+            "x": 145,
+            "y": 510,
+            "w": 38,
+            "h": 35,
+            "type": "missing_part",
+            "severity": "moderate"
+        },
+        {
+            "x": 506,
+            "y": 79,
+            "w": 41,
+            "h": 40,
+            "type": "missing_part",
+            "severity": "moderate"
+        }
+    ]
+}
