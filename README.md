@@ -30,7 +30,7 @@ Successfully identified **3 distinct anomalies** (deformations/missing parts) on
 
 | Reference Image | Current Image (with Anomalies) |
 |:---------------:|:------------------------------:|
-| ![Reference](Images_used/race_car_tire_1.jpeg) | ![Current](Images_used/race_car_tire_1_anamoly.jpeg) |
+| ![Reference](Images_used/race_car_tire_1.jpeg) | ![Current](Images_used/race_car_tire_1_anomaly.jpeg) |
 
 ### Detection Output
 
