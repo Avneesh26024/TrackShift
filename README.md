@@ -2,7 +2,6 @@
 
 [![Hackathon](https://img.shields.io/badge/Hackathon-Trackshift-blue)](https://github.com/Avneesh26024/TrackShift)
 [![Python](https://img.shields.io/badge/Python-3.8+-green.svg)](https://www.python.org/)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 > **Submission for the Trackshift Hackathon**
 
@@ -31,7 +30,7 @@ Successfully identified **3 distinct anomalies** (deformations/missing parts) on
 
 | Reference Image | Current Image (with Anomalies) |
 |:---------------:|:------------------------------:|
-| ![Reference](Images_used/race_car_tire_1.jpeg) | ![Current](Images_used/race_car_tire_1_anomaly.jpeg) |
+| ![Reference](Images_used/race_car_tire_1.jpeg) | ![Current](Images_used/race_car_tire_1_anamoly.jpeg) |
 
 ### Detection Output
 
@@ -151,11 +150,77 @@ We implemented and compared four distinct pipelines to find the most robust solu
 | 3. Ensemble + K-Means + SAM2 | (SSIM + AbsDiff) × 10 fusions + K-Means + SAM2 | 3/3 | ✅ Accurate but slow, complex to tune |
 | 4. DINOv3 + SAM2 | Semantic Feature Difference (ViT) | 0/3 | ❌ Failed. Unsuitable for pixel-level anomalies |
 
-## 🧠 Future Work: Time-Series Embedding Decoder
+## 🧠 Theoretical Optimal Approach: Encoder-Decoder Architecture
 
-- Build a decoder model from embeddings of normal time-series images
-- Detect anomalies by reconstruction error on unseen/current images
-- Robust to noise, lighting changes, minor misalignments, and sensitive to true anomalies
+### Why This Would Be Superior
+
+In theory, for time-series anomaly detection tasks, an **encoder-decoder architecture** would provide significantly better performance. The ideal pipeline would involve:
+
+#### Proposed Architecture:
+1. **Vision Encoder** (DINOv3, SigLIP, or CLIP)
+   - Extract rich semantic embeddings from normal/reference images
+   - Capture both low-level texture patterns and high-level semantic features
+   - Build a robust representation of "normal" states across time series
+
+2. **Custom Anomaly Detection Decoder**
+   - Train specifically on normal image embeddings to learn reconstruction
+   - Detect anomalies through **reconstruction error** analysis
+   - Anomalies would have high reconstruction errors as they deviate from learned normal patterns
+
+#### Advantages Over Current Methods:
+- **Robust to Environmental Variations**: Handles lighting changes, minor misalignments, camera angle shifts
+- **Semantic Understanding**: Distinguishes between meaningful anomalies vs. irrelevant variations
+- **Noise Resilience**: Learned features are more robust than pixel-level differences
+- **Scalable**: Once trained, can generalize across similar object categories
+- **End-to-End Learning**: Optimized specifically for anomaly detection objective
+
+### Why We Couldn't Implement This Approach
+
+Despite the theoretical advantages, we faced several practical constraints:
+
+| Constraint | Impact |
+|------------|--------|
+| **Lack of Training Dataset** | No large-scale time-series dataset of normal images for the specific domain (race car tires, manufacturing parts, etc.) |
+| **Computational Resources** | Training deep encoder-decoder models requires significant GPU resources (multiple high-end GPUs, days of training time) |
+| **Time Limitations** | Hackathon timeframe insufficient for data collection, model training, hyperparameter tuning, and validation |
+| **Domain Specificity** | Pre-trained decoders don't exist for this specific task; would require training from scratch |
+| **Annotation Requirements** | Supervised approaches would need labeled anomaly data, which wasn't available |
+
+### Our Alternative Solution
+
+Given these constraints, we developed **practical, resource-efficient alternatives** that work out-of-the-box without requiring training data or expensive compute:
+
+#### ✅ Traditional Computer Vision Approaches
+- **SSIM (Structural Similarity Index)**: Captures perceptual differences and structural changes
+- **Pixel-Wise Absolute Difference**: Detects precise pixel-level changes
+- **Hybrid Fusion Methods**: Combines multiple difference metrics for robustness
+
+#### ✅ Zero-Shot Deep Learning
+- **SAM (Segment Anything Model)**: Pre-trained segmentation for precise anomaly boundaries
+- **SAM2**: Next-generation segmentation with improved accuracy
+
+#### ✅ Unsupervised Clustering
+- **K-Means**: Groups similar anomaly regions without labeled data
+
+### Experimental Validation: DINOv3 Attempt
+
+We attempted to leverage **DINOv3's semantic embeddings** for anomaly detection (see `Visual_Difference_Engine_DINOv3_SAM2.ipynb`), but it **failed to detect small-scale anomalies**. This validates our hypothesis:
+
+- **Root Cause**: DINOv3 embeddings alone, without a trained decoder, cannot effectively identify pixel-level texture anomalies
+- **Lesson Learned**: Pre-trained encoders need task-specific decoders/heads for anomaly detection
+
+### Future Work Roadmap
+
+When resources become available, we plan to:
+
+1. **Collect Domain-Specific Dataset**: Gather 10K+ normal time-series images across various conditions
+2. **Train Encoder-Decoder**: Fine-tune DINOv3/CLIP encoder with custom anomaly detection decoder
+3. **Benchmark Performance**: Compare against our current hybrid approaches
+4. **Deploy Production Model**: Create API for real-time anomaly detection in manufacturing pipelines
+
+---
+
+**Current Status**: Our **Hybrid Difference + SAM approach** achieves excellent results (3/3 anomalies detected) and serves as a robust baseline for immediate deployment.
 
 ## 📦 Installation & Usage
 
@@ -227,13 +292,6 @@ TrackShift/
 - **Flexible**: Works across various use cases (manufacturing, infrastructure, etc.)
 - **Comprehensive Output**: Provides both visual annotations and structured JSON results
 
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## 👥 Authors
 
@@ -248,4 +306,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Built with ❤️ for the Trackshift Hackathon**
