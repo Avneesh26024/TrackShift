@@ -82,7 +82,7 @@ We tested our generalized pipeline on satellite imagery to demonstrate cross-dom
 ### Detection Results
 ![Visual Changes Detected](https://github.com/Avneesh26024/TrackShift/blob/main/Satellite_Image_Test/Visual_Changes.png?raw=true)
 
-**Result:** The system successfully identified 17 distinct change regions including land use modifications, infrastructure development, and environmental alterations—**without any training on satellite imagery.**
+**Result:** The system successfully identified changes in regions including land use modifications, infrastructure development, and environmental alterations—**without any training on satellite imagery.**
 
 ---
 
